@@ -19,15 +19,22 @@ const search = () => {
             if (animeTrue.length > 0) {
                 animeTrue.forEach(item => {
                     dropdownSearch.insertAdjacentHTML('beforeend', `
-                        <li><a href="./anime-details.html?itemId=${item.id}">${item.title}</a></li>
+                        <div class="anime__info">
+                            <div class="anime__search__pic set-bg" data-setbg="${item.image}"></div>
+                            <a href="./anime-details.html?itemId=${item.id}">${item.title}</a>
+                            <span>${item.rating}</span>
+                        </div>
                     `);
                 });
             } else {
                 dropdownSearch.innerHTML = '';
                 dropdownSearch.insertAdjacentHTML('beforeend', `
-                    <li>Аниме отсутстыует!</li>
+                    <li>Аниме отсутствует!</li>
                 `);
             }
+            document.querySelectorAll('.set-bg').forEach((elem) => {
+                elem.style.backgroundImage = `url(${elem.dataset.setbg})`;
+            });
         };
     }
     

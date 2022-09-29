@@ -2,7 +2,7 @@ const detailsData = () => {
     const preloder = document.querySelector('.preloder');
 
     const renderGanreList = (ganres) => {
-        const dropdownBlock = document.querySelector('.header__menu .dropdown');
+        const dropdownBlock = document.querySelector('.dropdown');
 
         ganres.forEach(ganre => {
             dropdownBlock.insertAdjacentHTML('beforeend', `
@@ -62,18 +62,18 @@ const detailsData = () => {
     fetch('https://anime-site-b408e-default-rtdb.firebaseio.com/anime.json')
         .then((response) => response.json())
         .then((anime) => {
-            //const ganres = new Set();
+            const ganres = new Set();
             const ganreParams = new URLSearchParams(window.location.search).get('itemId');
 
             anime.splice(31,1);
-            //anime.forEach((item) => ganres.add(item.ganre));
+            anime.forEach((item) => ganres.add(item.ganre));
 
             if (ganreParams) {
                 renderAnimeDetails(anime, ganreParams);
             } else {
                 console.log('Аниме отсутствует!');
             }
-            //renderGanreList(ganres);
+            renderGanreList(ganres);
         })
 };
 

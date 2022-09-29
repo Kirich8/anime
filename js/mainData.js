@@ -18,7 +18,7 @@ const mainData = () => {
             const productBlock = document.createElement('div');
             const listBlock = document.createElement('div');
             const list = array.filter((item) => item.ganre === ganre);
-            
+
             listBlock.classList.add('row');
             productBlock.classList.add('mb-5');
 
@@ -46,7 +46,7 @@ const mainData = () => {
                     `);
                 });
                 //tag.style.display = `none`;
-                
+
                 listBlock.insertAdjacentHTML('beforeend', `
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="product__item">
@@ -62,19 +62,19 @@ const mainData = () => {
                     </div>
                 `);
             });
-            
+
             productBlock.append(listBlock);
             wrapper.append(productBlock);
 
             wrapper.querySelectorAll('.set-bg').forEach((elem) => {
                 elem.style.backgroundImage = `url(${elem.dataset.setbg})`;
             });
-        }); 
+        });
         setTimeout(() => {
             preloder.classList.remove('active');
         }, 500);
     };
-    
+
     const renderTopAnime = (array) => {
         const wrapper = document.querySelector('.filter__gallery');
 
@@ -93,17 +93,20 @@ const mainData = () => {
         });
     };
 
+    
+
     fetch('https://anime-site-b408e-default-rtdb.firebaseio.com/anime.json')
         .then((response) => response.json())
         .then((anime) => {
             const ganres = new Set();
-            
-            anime.splice(31,1);
+
+            anime.splice(31, 1);
             anime.forEach((item) => ganres.add(item.ganre));
-            
+
             renderTopAnime(anime.sort((a, b) => b.views - a.views).slice(0, 5));
             renderAnimeList(anime, ganres);
             renderGanreList(ganres);
+            searchAnime(anime);
         })
 };
 
